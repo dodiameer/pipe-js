@@ -18,7 +18,8 @@
   "scripts": {
     "dev": "vite",
     "build": "rimraf ./dist && tsc && vite build",
-    "serve": "vite preview"
+    "serve": "vite preview",
+    "prepublishOnly": "pnpm build"
   },
   "devDependencies": {
     "rimraf": "^3.0.2",
