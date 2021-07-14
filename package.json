@@ -17,9 +17,16 @@
   "files": [
     "dist"
   ],
-  "version": "1.0.0",
+  "version": "1.0.1",
   "license": "MIT",
-  "keywords": ["functional-programming", "pipe", "browser", "node", "fp", "functional"],
+  "keywords": [
+    "functional-programming",
+    "pipe",
+    "browser",
+    "node",
+    "fp",
+    "functional"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "rimraf ./dist && tsc && vite build",
