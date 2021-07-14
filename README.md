@@ -46,4 +46,7 @@ const data = await getDataFromApi()
 const serializedData = serializeData(data)
 const value =  prettyPrint(serializedData, { tabWidth: 2 })
 ```
-  
+
+## Practical example
+
+See [this CodePen](https://codepen.io/dodiameer/pen/xxdgQWO?editors=1111)
