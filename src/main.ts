@@ -7,6 +7,7 @@ const renderIntialApp = () => {
   const pre = document.createElement("pre");
   const code = document.createElement("code");
   code.id = "data";
+  code.innerText = "Loading...";
   pre.append(code);
   app.append(pre);
 };
@@ -42,19 +43,27 @@ const serializeCSV = (data: Array<any[]>) => {
   return output;
 };
 
-const getCSV = (rows = 3) => {
+const delay = (amount: number) =>
+  new Promise<void>((resolve) => setTimeout(() => resolve(), amount));
+
+const getCSV = async (rows = 3) => {
   const headers = ["name", "age", "gender"];
   const data = [
     ["John Smith", "24", "Male"],
     ["Alex Williams", "19", "Non-binary"],
     ["Sarah Clifford", "29", "Female"],
   ].slice(0, rows);
+  await delay(1750);
   return [headers, ...data];
 };
 
-(() => {
+(async () => {
   renderIntialApp();
-  const value = pipe([getCSV, 2], serializeCSV, [JSON.stringify, null, 2]);
+  const value = await pipe([getCSV, 2], serializeCSV, [
+    JSON.stringify,
+    null,
+    2,
+  ]);
   // const csv = getCSV()
   // const serializedCSV = serializeCSV(csv)
   // const value = JSON.stringify(serializedCSV, null, 2)

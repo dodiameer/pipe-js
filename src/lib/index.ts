@@ -11,7 +11,7 @@ type CallFunctionOrArrayOptions = {
  * @param funcOrArray A bare function or an array where the first item is a function and the rest is the function arguments
  * @param opts Options
  */
-const callFunctionOrArray = (
+const callFunctionOrArray = async (
   funcOrArray: FunctionOrArray,
   opts: CallFunctionOrArrayOptions
 ) => {
@@ -33,35 +33,41 @@ const callFunctionOrArray = (
 };
 
 /**
- * A function that calls it's arguments, passing the retruned value from the previous function to the next one
- * @todo Implement support for async functions
+ * A function that calls it's arguments,
+ * passing the returned value from the
+ * previous function to the next one.
+ *
+ * Supports async functions, but doesn't
+ * optimize awaiting promises
+ * (awaits each function)
+ *
  * @typedef {Function | [Function, ...any]} FunctionOrArray
  * @param {FunctionOrArray} initialFunction
- * @param {Array<FunctionOrArray>} functions 
+ * @param {Array<FunctionOrArray>} functions
  * @example ```js
  * const value = pipe(
- * getCSVFromAPI, 
- * serializeCSVToObject, 
+ * getCSVFromAPI,
+ * serializeCSVToObject,
  * [prettifyObject, {tabWidth: 2}]
  * );
- * 
+ *
  * // Equals below
  * // const csv = getCSVFromAPI()
  * // const serializedCsv = serializeCSVToObject(csv)
  * // const value = prettifyObject(serializedCsv, { tabWidth: 2 })
  * ```
  */
-export const pipe = <ReturnType = any>(
+export const pipe = async <ReturnType = any>(
   initialFunction: FunctionOrArray,
   ...functions: FunctionOrArray[]
-): ReturnType => {
-  let value = callFunctionOrArray(initialFunction, {
+): Promise<ReturnType> => {
+  let value = await callFunctionOrArray(initialFunction, {
     shouldCallWithValue: false,
   });
-  functions.forEach((maybeFuncOrArray) => {
-    value = callFunctionOrArray(maybeFuncOrArray, { value });
-  });
+  for (const maybeFuncOrArray of functions) {
+    value = await callFunctionOrArray(maybeFuncOrArray, { value });
+  }
   return value as unknown as ReturnType;
 };
 
-export default pipe
+export default pipe;
