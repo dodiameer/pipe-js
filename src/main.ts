@@ -1,5 +1,5 @@
 import "./style.css";
-import { pipe } from "./lib";
+import { makePipe } from "./lib";
 
 const app = document.querySelector<HTMLDivElement>("#app")!;
 
@@ -59,11 +59,15 @@ const getCSV = async (rows = 3) => {
 
 (async () => {
   renderIntialApp();
-  const value = await pipe([getCSV, 2], serializeCSV, [
-    JSON.stringify,
-    null,
-    2,
-  ]);
+  const fetchAndSerialize = makePipe<string>([getCSV, 2], serializeCSV, [JSON.stringify, null, 2])
+  const value = await fetchAndSerialize()
+  // Also written as
+  // const value = await pipe([getCSV, 2], serializeCSV, [
+  //   JSON.stringify,
+  //   null,
+  //   2,
+  // ]);
+  // Equivalent to
   // const csv = getCSV()
   // const serializedCSV = serializeCSV(csv)
   // const value = JSON.stringify(serializedCSV, null, 2)

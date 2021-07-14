@@ -45,7 +45,7 @@ const callFunctionOrArray = async (
  * @param {FunctionOrArray} initialFunction
  * @param {Array<FunctionOrArray>} functions
  * @example ```js
- * const value = pipe(
+ * const value = await pipe(
  * getCSVFromAPI,
  * serializeCSVToObject,
  * [prettifyObject, {tabWidth: 2}]
@@ -69,5 +69,15 @@ export const pipe = async <ReturnType = any>(
   }
   return value as unknown as ReturnType;
 };
+
+/**
+ * Makes a reusable pipe that can be called multiple times
+ * @param {FunctionOrArray[]} functions 
+ * @example ```js
+ * const fetchAndSerialize = makePipe(fetchData, serializeData)
+ * const data = await fetchAndSerialize()
+ * ```
+ */
+export const makePipe = <ReturnType = any>(...functions: FunctionOrArray[]) => async () => await pipe<ReturnType>(functions[0], ...functions.slice(1))
 
 export default pipe;
