@@ -6,13 +6,22 @@
     "email": "mtxshiftg@gmail.com",
     "url": "https://portfolio.dodiameer.tk"
   },
+  "main": "./dist/pipe-js.umd.js",
+  "module": "./dist/pipe-js.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/pipe-js.es.js",
+      "require": "./dist/pipe-js.umd.js"
+    }
+  },
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
+    "build": "rimraf ./dist && tsc && vite build",
     "serve": "vite preview"
   },
   "devDependencies": {
+    "rimraf": "^3.0.2",
     "typescript": "^4.3.2",
     "vite": "^2.4.2"
   },
