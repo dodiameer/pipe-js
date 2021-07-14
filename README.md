@@ -13,25 +13,25 @@ Simple pipe function, takes return value of a function and passes it as the firs
 Install PipeJS with npm
 
 ```bash
-npm install pipe-js
+npm install @dodiameer/pipe-js
 ```
 
 Install PipeJS with pnpm
 
 ```bash
-pnpm install pipe-js
+pnpm install @dodiameer/pipe-js
 ```
 
 Install PipeJS with yarn
 
 ```bash
-yarn add pipe-js
+yarn add @dodiameer/pipe-js
 ``` 
 
 ## Usage
 
 ```js
-import { pipe } from "pipe-js" // or `import pipe from "pipe-js"`
+import { pipe } from "@dodiameer/pipe-js" // or `import pipe from "@dodiameer/pipe-js"`
 
 const value = await pipe(
     getDataFromApi,

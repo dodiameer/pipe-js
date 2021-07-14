@@ -1,5 +1,5 @@
 {
-  "name": "pipe-js",
+  "name": "@dodiameer/pipe-js",
   "description": "Simple pipe function, takes return value of a function and passes it as the first argument to the next function.",
   "author": {
     "name": "Mohammed Ali Agha",
@@ -14,7 +14,9 @@
       "require": "./dist/pipe-js.umd.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "version": "1.0.0",
   "scripts": {
     "dev": "vite",
